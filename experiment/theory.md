@@ -193,9 +193,6 @@ The transformer utilization factor is defined as:
 </center> 
     </td>
 </tr>
-<tr>
-  Fig. 3. Steady-state waveforms of diode bridge rectifier.
-</tr>
 </table>
 
 <br>
@@ -205,7 +202,7 @@ Fig. 3. Steady-state waveforms of diode bridge rectifier.
 </div>
 
 <br>
-<div style="float: left; width:100%;">
+<div style="float: left; width:100%;"><br>
 RMS voltage of the transformer secondary is
 <br>
 </div>
@@ -231,6 +228,11 @@ Transformer secondary current is
       </div>
 <br><br>
 
+
+
+
+
+
 <div style="float: left; width:100%;">
   
 The power factor for resistive load can be defined as;   
@@ -239,7 +241,7 @@ The power factor for resistive load can be defined as;
 <div style="float: left; width:100%;">
 
 <center>
-  <img src="images/th17.png" height="350px">
+  <img src="images/th20.png" height="350px">
 <br> 
 Fig. 4. Circuit diagram of diode bridge rectifier with C-filter.
 
