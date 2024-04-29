@@ -229,10 +229,6 @@ Transformer secondary current is
 <br><br>
 
 
-
-
-
-
 <div style="float: left; width:100%;">
   
 The power factor for resistive load can be defined as;   
@@ -258,20 +254,54 @@ Fig. 4. Circuit diagram of diode bridge rectifier with C-filter.
       </div>
 <br><br>      
 
+
 <br>
 <div style="float: left; width:100%;"><br>
-
-**e) Current through various components:**
-
-The current through various components is given in Fig. 3.
-
+The diode bridge rectifier converts the ac input voltage into a pulsating dc output voltage as shown in Fig. 3(a). Here, the peak value is higher than average dc output voltage. Also, the peak-to-peak ripple voltage is more. To get constant dc voltage with minimum ripple content, a low-pass filter (here a capacitor filter) is inserted between the rectifier bridge output and load. By connecting the “C-filter” the load voltage waveform becomes smooth and thus the peak-to-peak ripple voltage reduces, which is shown in Fig. 3(b). The peak–to-peak output ripple voltage is:
+<br>
 </div>
 
-<center>
-  <img src="images/th18.png">
-  
-Fig. 3 Current through various components.
-
-</center>
+<br><br>
+<div style="float: left; width:50%;">
+  <img src="images/th21.png" height="60px">
+      </div>
+<div style="float: right; width:50%; text-align:center;">
+    ..(15)
+      </div>
 <br>
-<center>
+<div style="float: left; width:100%;"><br>
+The ripple factor of output voltage is:
+</div>
+
+<br>
+<div style="float: left; width:50%;">
+  <img src="images/th22.png" height="60px">
+      </div>
+<div style="float: right; width:50%; text-align:center;">
+    ..(16)
+      </div>
+<br><br>
+<div style="float: left; width:100%;"><br>
+&nbsp;
+</div>
+
+<br>
+<div style="float: left; width:50%;">
+  <img src="images/th23.png" height="60px">
+      </div>
+<div style="float: right; width:50%; text-align:center;">
+    ..(17)
+      </div>
+<br><br>
+<div style="float: left; width:100%;"><br>
+The average output voltage with C-filter is:
+</div>
+
+<br>
+<div style="float: left; width:50%;">
+  <img src="images/th24.png" height="60px">
+      </div>
+<div style="float: right; width:50%; text-align:center;">
+    ..(18)
+      </div>
+<br><br>
