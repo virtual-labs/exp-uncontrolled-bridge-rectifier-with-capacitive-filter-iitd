@@ -44,16 +44,15 @@ The average value of the output load voltage is:
 <br>
 
 <div style="float: left; width:50%;">
-  <img src="images/th4.png" height="25px">
+  <img src="images/th4.png" height="45px">
 </div>
 <div style="float: right; width:50%; text-align:center;">
     ..(1)
 </div>
 <br><br>
 
-
 <div style="float: left; width:50%;">
-  <img src="images/th5.png" height="25px">
+  <img src="images/th5.png" height="35px">
 </div>
 <div style="float: right; width:50%; text-align:center;">
     ..(2)
@@ -64,7 +63,7 @@ The average value of the output load current is:
 <br>
 
 <div style="float: left; width:50%;">
-  <img src="images/th6.png" height="25px">
+  <img src="images/th6.png" height="56px">
       </div>
 <div style="float: right; width:50%; text-align:center;">
     ..(3)
@@ -76,7 +75,7 @@ The average power supplied to load is:
 <br>
 
 <div style="float: left; width:50%;">
-  <img src="images/th7.png" height="60px">
+  <img src="images/th7.png" height="38px">
       </div>
 <div style="float: right; width:50%; text-align:center;" height="60px">
     ..(4)
@@ -92,7 +91,7 @@ The RMS value of the output voltage, V_rms
 <br><br>
 
 <div style="float: left; width:50%;">
-  <img src="images/th8.png" height="30px">
+  <img src="images/th8.png" height="46px">
       </div>
 <div style="float: right; width:50%; text-align:center;">
     ..(5)
@@ -105,7 +104,7 @@ The rms output current (I_rms)is
 </div>
 
 <div style="float: left; width:50%;">
-  <img src="images/th9.png" height="30px">
+  <img src="images/th9.png" height="60px">
       </div>
 <div style="float: right; width:50%; text-align:center;">
     ..(6)
@@ -118,7 +117,7 @@ The ac component of output voltage is:
 </div>
 
 <div style="float: left; width:50%;">
-  <img src="images/th10.png" height="30px">
+  <img src="images/th10.png" height="45px">
       </div>
 <div style="float: right; width:50%; text-align:center;">
     ..(7)
