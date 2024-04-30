@@ -298,7 +298,7 @@ The diode bridge rectifier converts the ac input voltage into a pulsating dc out
 </div>
 <br><br>
 
-<div style="float: left; width:50%;"><br>
+<div style="float: left; width:50%;">
   <img src="images/th21.png" height="60px">
       </div>
 <div style="float: right; width:50%; text-align:center;">
@@ -321,12 +321,12 @@ The ripple factor of output voltage is:
       </div>
 <br>
 
-<div style="float: left; width:100%;"><br>
-  
+<div style="float: left; width:100%;">
+
 &nbsp;
 
 </div>
-<br><br>
+<br>
 
 <div style="float: left; width:50%;">
   <img src="images/th23.png" height="60px">
@@ -337,7 +337,7 @@ The ripple factor of output voltage is:
 <br>
 
 <div style="float: left; width:100%;"><br>
-  
+
 The average output voltage with C-filter is:
 
 </div>
