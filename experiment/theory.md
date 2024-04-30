@@ -44,7 +44,7 @@ The average value of the output load voltage is:
 <br>
 
 <div style="float: left; width:50%;">
-  <img src="images/th4.png" height="45px">
+  <img src="images/th4.png" height="50px">
 </div>
 <div style="float: right; width:50%; text-align:center;">
     ..(1)
@@ -52,7 +52,7 @@ The average value of the output load voltage is:
 <br><br>
 
 <div style="float: left; width:50%;">
-  <img src="images/th5.png" height="35px">
+  <img src="images/th5.png" height="38px">
 </div>
 <div style="float: right; width:50%; text-align:center;">
     ..(2)
@@ -63,19 +63,21 @@ The average value of the output load current is:
 <br>
 
 <div style="float: left; width:50%;">
-  <img src="images/th6.png" height="56px">
+  <img src="images/th6.png" height="60px">
       </div>
 <div style="float: right; width:50%; text-align:center;">
     ..(3)
 
 </div>
 
-<br><br>
+<div style="float: left; width:100%;"><br>
+  
 The average power supplied to load is:
 <br>
+</div>
 
 <div style="float: left; width:50%;">
-  <img src="images/th7.png" height="38px">
+  <img src="images/th7.png" height="40px">
       </div>
 <div style="float: right; width:50%; text-align:center;" height="60px">
     ..(4)
@@ -91,7 +93,7 @@ The RMS value of the output voltage, V_rms
 <br><br>
 
 <div style="float: left; width:50%;">
-  <img src="images/th8.png" height="46px">
+  <img src="images/th8.png" height="50px">
       </div>
 <div style="float: right; width:50%; text-align:center;">
     ..(5)
@@ -117,7 +119,7 @@ The ac component of output voltage is:
 </div>
 
 <div style="float: left; width:50%;">
-  <img src="images/th10.png" height="45px">
+  <img src="images/th10.png" height="40px">
       </div>
 <div style="float: right; width:50%; text-align:center;">
     ..(7)
@@ -130,7 +132,7 @@ The output effective (rms) ac power is;
 
 
 <div style="float: left; width:50%;">
-  <img src="images/th11.png" height="30px">
+  <img src="images/th11.png" height="45px">
       </div>
 <div style="float: right; width:50%; text-align:center;">
     ..(8)
@@ -139,45 +141,46 @@ The output effective (rms) ac power is;
 <div style="float: left; width:100%;"><br>
 <br>
 The ripple factor, which is a measure of the ripple content, is defined as;
-<br>
+<br><br>
 </div>
 
-<br>
-<div style="float: left; width:50%;">
-  <img src="images/th12.png" height="30px">
+
+<div style="float: left; width:50%;"><br>
+  <img src="images/th12.png" height="75px">
       </div>
 <div style="float: right; width:50%; text-align:center;">
     ..(9)
       </div>
       
-<div style="float: left; width:100%;">
+<div style="float: left; width:100%;"><br>
 Efficiency (or rectification ratio) of a rectifier is:
-</div>
+<br><br></div>
 
-<div style="float: left; width:50%;">
-  <img src="images/th13.png" height="30px">
+<div style="float: left; width:50%;"><br>
+  <img src="images/th13.png" height="70px">
       </div>
 <div style="float: right; width:50%; text-align:center;">
     ..(10)
       </div>    
 
-<div style="float: left; width:100%;"><br><br> 
+<div style="float: left; width:100%;"><br>
 The transformer utilization factor is defined as:
 <br><br> 
 </div>
 
 <div style="float: left; width:50%;">
-  <img src="images/th14.png" height="30px">
+  <img src="images/th14.png" height="60px">
       </div>
 <div style="float: right; width:50%; text-align:center;">
     ..(11)
       </div>
+<br><br> <br> 
 
 <table border="0" align="center" style="width:100%; border:none;">
 <tr>
 <td style="width:50%">
 <center>
-<img src="images/th15.png">
+<img src="images/th15.png" height="600px">
 <br><br>
 (a) Waveforms without filter.
 <br><br>
@@ -185,7 +188,7 @@ The transformer utilization factor is defined as:
 </td>
 <td style="width:50%">
 <center>
-<img src="images/th16.png">
+<img src="images/th16.png" height="600px">
 <br><br>
 (b) Waveforms with C-filter.
 <br><br>
@@ -208,7 +211,7 @@ RMS voltage of the transformer secondary is
 
 <br><br>
 <div style="float: left; width:50%;">
-  <img src="images/th15.png" height="60px">
+  <img src="images/th17.png" height="60px">
       </div>
 <div style="float: right; width:50%; text-align:center;">
     ..(12)
@@ -220,41 +223,36 @@ Transformer secondary current is
 
 <br>
 <div style="float: left; width:50%;">
-  <img src="images/th16.png" height="60px">
+  <img src="images/th18.png" height="60px">
       </div>
 <div style="float: right; width:50%; text-align:center;">
     ..(13)
       </div>
 <br><br>
 
-
-<div style="float: left; width:100%;">
-  
+<div style="float: left; width:100%;"> 
 The power factor for resistive load can be defined as;   
-</div>
-
-<div style="float: left; width:100%;">
-
-<center>
-  <img src="images/th20.png" height="350px">
-<br> 
-Fig. 4. Circuit diagram of diode bridge rectifier with C-filter.
-
-</center>
-<br>   
-</div>
 <br><br>
+</div>
 
 <div style="float: left; width:50%;">
-  <img src="images/th17.png" height="60px">
+  <img src="images/th19.png" height="60px">
       </div>
 <div style="float: right; width:50%; text-align:center;">
     ..(14)
       </div>
-<br><br>      
+<br><br>
 
-
+<div style="float: left; width:100%;">
+<center>
+  <img src="images/th20.png" height="350px">
+<br> 
+Fig. 4. Circuit diagram of diode bridge rectifier with C-filter.
+</center>
+<br>   
+</div>
 <br>
+
 <div style="float: left; width:100%;"><br>
 The diode bridge rectifier converts the ac input voltage into a pulsating dc output voltage as shown in Fig. 3(a). Here, the peak value is higher than average dc output voltage. Also, the peak-to-peak ripple voltage is more. To get constant dc voltage with minimum ripple content, a low-pass filter (here a capacitor filter) is inserted between the rectifier bridge output and load. By connecting the “C-filter” the load voltage waveform becomes smooth and thus the peak-to-peak ripple voltage reduces, which is shown in Fig. 3(b). The peak–to-peak output ripple voltage is:
 <br>
