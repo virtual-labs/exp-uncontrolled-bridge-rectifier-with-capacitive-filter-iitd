@@ -163,7 +163,7 @@ The ripple factor, which is a measure of the ripple content, is defined as;
 </div>
 <br><br>
 
-<div style="float: left; width:50%;"><br>
+<div style="float: left; width:50%;">
   <img src="images/th12.png" height="75px">
       </div>
 <div style="float: right; width:50%; text-align:center;">
@@ -207,7 +207,6 @@ The transformer utilization factor is defined as:
 
 </div>
 <br><br>
- 
 
 <table border="0" align="center" style="width:100%; border:none;">
 <tr>
