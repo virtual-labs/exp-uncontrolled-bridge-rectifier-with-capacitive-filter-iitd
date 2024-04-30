@@ -36,7 +36,7 @@ Fig. 2(b). Negative-half cycle.
 </table>
 <br>
  
- During the positive half-cycle of the AC input voltage, diodes ‘D1’ and ‘D¬2’ are conducting and the power is supplied to the load while in the negative half-cycle diodes ‘D3’ and ‘D4’ are conducting. The steady-state waveforms of the output voltage (Vo), input current (Iin) and diode voltage (VD1) are shown in Fig. 3. The output voltage is pulsating DC superimposed with ac ripple.
+ During the positive half-cycle of the AC input voltage, diodes ‘D<sub>1</sub>’ and ‘D<sub>2</sub>’ are conducting and the power is supplied to the load while in the negative half-cycle diodes ‘D<sub>3</sub>’ and ‘D<sub>4</sub>’ are conducting. The steady-state waveforms of the output voltage (V<sub>o</sub>), input current (I<sub>in</sub>) and diode voltage (V<sub>D1</sub>) are shown in Fig. 3. The output voltage is pulsating DC superimposed with ac ripple.
 
 <div style="float: left; width:100%;"><br>
   
@@ -99,7 +99,7 @@ The average power supplied to load is:
 
 <div style="float: left; width:100%;"><br>
   
-The RMS value of the output voltage, V_rms
+The RMS value of the output voltage, V<sub>rms</sub>
 
 </div>
 <br><br>
@@ -115,7 +115,7 @@ The RMS value of the output voltage, V_rms
 
 <div style="float: left; width:100%;"><br>
   
-The rms output current (I_rms)is
+The rms output current (I<sub>rms</sub>)is
 
 </div>
 <br><br>
