@@ -259,7 +259,7 @@ Transformer secondary current is
 <br><br>
 
 <div style="float: left; width:50%;">
-  <img src="images/th18.png" height="60px">
+  <img src="images/th18.png" height="65px">
       </div>
 <div style="float: right; width:50%; text-align:center;">
     ..(13)
