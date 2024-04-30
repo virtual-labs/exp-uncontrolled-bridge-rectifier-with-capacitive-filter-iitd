@@ -139,12 +139,14 @@ The ac component of output voltage is:
 <div style="float: right; width:50%; text-align:center;">
     ..(7)
       </div>
+<br>
 
-<div style="float: left; width:100%;"><br><br>
+<div style="float: left; width:100%;"><br>
+  
 The output effective (rms) ac power is;
-<br><br>
-</div>
 
+</div>
+<br><br>
 
 <div style="float: left; width:50%;">
   <img src="images/th11.png" height="45px">
@@ -153,12 +155,13 @@ The output effective (rms) ac power is;
     ..(8)
       </div>
 <br>
-<div style="float: left; width:100%;"><br>
-<br>
-The ripple factor, which is a measure of the ripple content, is defined as;
-<br><br>
-</div>
 
+<div style="float: left; width:100%;"><br>
+  
+The ripple factor, which is a measure of the ripple content, is defined as;
+
+</div>
+<br><br>
 
 <div style="float: left; width:50%;"><br>
   <img src="images/th12.png" height="75px">
@@ -166,10 +169,14 @@ The ripple factor, which is a measure of the ripple content, is defined as;
 <div style="float: right; width:50%; text-align:center;">
     ..(9)
       </div>
-      
+<br>
+
 <div style="float: left; width:100%;"><br>
+  
 Efficiency (or rectification ratio) of a rectifier is:
-<br><br></div>
+
+</div>
+<br><br>
 
 <div style="float: left; width:50%;"><br>
   <img src="images/th13.png" height="70px">
@@ -177,11 +184,14 @@ Efficiency (or rectification ratio) of a rectifier is:
 <div style="float: right; width:50%; text-align:center;">
     ..(10)
       </div>    
+<br>
 
 <div style="float: left; width:100%;"><br>
+  
 The transformer utilization factor is defined as:
-<br><br> 
+
 </div>
+<br><br>
 
 <div style="float: left; width:50%;">
   <img src="images/th14.png" height="60px">
@@ -189,7 +199,15 @@ The transformer utilization factor is defined as:
 <div style="float: right; width:50%; text-align:center;">
     ..(11)
       </div>
-<br><br> <br> 
+<br>
+
+<div style="float: left; width:100%;"><br>
+  
+&nbsp;
+
+</div>
+<br><br>
+ 
 
 <table border="0" align="center" style="width:100%; border:none;">
 <tr>
