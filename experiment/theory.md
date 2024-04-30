@@ -53,12 +53,9 @@ The average value of the output load voltage is:
 </div>
 <br>
 
-<div style="float: left; width:100%;">
-  
+<div style="float: left; width:100%;">  
 &nbsp;
-
 </div>
-<br>
 
 <div style="float: left; width:50%;">
   <img src="images/th5.png" height="38px">
