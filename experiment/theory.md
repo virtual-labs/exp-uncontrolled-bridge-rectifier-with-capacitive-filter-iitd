@@ -67,12 +67,14 @@ The average value of the output load voltage is:
 <div style="float: right; width:50%; text-align:center;">
     ..(2)
 </div>     
-<br><br>
+<br>
 
 <div style="float: left; width:100%;"><br>
+  
 The average value of the output load current is:
-<br>
+
 </div>
+<br><br>
 
 <div style="float: left; width:50%;">
   <img src="images/th6.png" height="60px">
@@ -81,11 +83,14 @@ The average value of the output load current is:
     ..(3)
 
 </div>
+<br>
 
 <div style="float: left; width:100%;"><br>
+  
 The average power supplied to load is:
-<br>
+
 </div>
+<br><br>
 
 <div style="float: left; width:50%;">
   <img src="images/th7.png" height="40px">
@@ -110,11 +115,14 @@ The RMS value of the output voltage, V_rms
     ..(5)
       </div>
 <br><br>
+<br>
 
 <div style="float: left; width:100%;"><br>
+  
 The rms output current (I_rms)is
-<br>
+
 </div>
+<br><br>
 
 <div style="float: left; width:50%;">
   <img src="images/th9.png" height="60px">
