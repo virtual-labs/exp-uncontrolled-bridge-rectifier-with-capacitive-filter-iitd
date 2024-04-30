@@ -178,10 +178,10 @@ Efficiency (or rectification ratio) of a rectifier is:
 </div>
 <br><br>
 
-<div style="float: left; width:50%;"><br>
+<div style="float: left; width:50%;">
   <img src="images/th13.png" height="70px">
       </div>
-<div style="float: right; width:50%; text-align:center;">
+<div style="float: right; width:50%; text-align:center;"><br>
     ..(10)
       </div>    
 <br>
