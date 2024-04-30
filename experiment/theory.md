@@ -281,7 +281,7 @@ The power factor for resistive load can be defined as;
       </div>
 <br><br>
 
-<div style="float: left; width:100%;">
+<div style="float: left; width:100%;"><br> 
 <center>
   <img src="images/th20.png" height="350px">
 <br> 
