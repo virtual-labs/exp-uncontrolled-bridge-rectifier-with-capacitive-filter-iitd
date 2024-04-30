@@ -343,7 +343,7 @@ The average output voltage with C-filter is:
 </div>
 <br><br>
 
-<div style="float: left; width:50%;"><br>
+<div style="float: left; width:50%;">
   <img src="images/th24.png" height="60px">
       </div>
 <div style="float: right; width:50%; text-align:center;">
