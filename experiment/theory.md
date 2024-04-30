@@ -234,14 +234,15 @@ The transformer utilization factor is defined as:
 Fig. 3. Steady-state waveforms of diode bridge rectifier.
 <br>
 </div>
-
 <br>
+
 <div style="float: left; width:100%;"><br>
+  
 RMS voltage of the transformer secondary is
-<br>
-</div>
 
+</div>
 <br><br>
+
 <div style="float: left; width:50%;">
   <img src="images/th17.png" height="60px">
       </div>
@@ -249,23 +250,28 @@ RMS voltage of the transformer secondary is
     ..(12)
       </div>
 <br>
-<div style="float: left; width:100%;"><br>
-Transformer secondary current is
-</div>
 
-<br>
+<div style="float: left; width:100%;"><br>
+  
+Transformer secondary current is
+
+</div>
+<br><br>
+
 <div style="float: left; width:50%;">
   <img src="images/th18.png" height="60px">
       </div>
 <div style="float: right; width:50%; text-align:center;">
     ..(13)
       </div>
-<br><br>
+<br>
 
-<div style="float: left; width:100%;"> 
-The power factor for resistive load can be defined as;   
-<br><br>
+<div style="float: left; width:100%;"><br>
+  
+The power factor for resistive load can be defined as;
+
 </div>
+<br><br>
 
 <div style="float: left; width:50%;">
   <img src="images/th19.png" height="60px">
@@ -286,8 +292,9 @@ Fig. 4. Circuit diagram of diode bridge rectifier with C-filter.
 <br>
 
 <div style="float: left; width:100%;"><br>
+  
 The diode bridge rectifier converts the ac input voltage into a pulsating dc output voltage as shown in Fig. 3(a). Here, the peak value is higher than average dc output voltage. Also, the peak-to-peak ripple voltage is more. To get constant dc voltage with minimum ripple content, a low-pass filter (here a capacitor filter) is inserted between the rectifier bridge output and load. By connecting the “C-filter” the load voltage waveform becomes smooth and thus the peak-to-peak ripple voltage reduces, which is shown in Fig. 3(b). The peak–to-peak output ripple voltage is:
-<br>
+
 </div>
 <br><br>
 
@@ -298,32 +305,41 @@ The diode bridge rectifier converts the ac input voltage into a pulsating dc out
     ..(15)
       </div>
 <br>
-<div style="float: left; width:100%;"><br>
-The ripple factor of output voltage is:
-</div>
 
-<br>
+<div style="float: left; width:100%;"><br>
+  
+The ripple factor of output voltage is:
+
+</div>
+<br><br>
+
 <div style="float: left; width:50%;">
   <img src="images/th22.png" height="60px">
       </div>
 <div style="float: right; width:50%; text-align:center;">
     ..(16)
       </div>
-<br><br>
-<div style="float: left; width:100%;"><br>
-&nbsp;
-</div>
-
 <br>
+
+<div style="float: left; width:100%;"><br>
+  
+&nbsp;
+
+</div>
+<br><br>
+
 <div style="float: left; width:50%;">
   <img src="images/th23.png" height="60px">
       </div>
 <div style="float: right; width:50%; text-align:center;">
     ..(17)
       </div>
-<br><br>
+<br>
+
 <div style="float: left; width:100%;"><br>
+  
 The average output voltage with C-filter is:
+
 </div>
 <br><br>
 
