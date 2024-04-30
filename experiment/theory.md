@@ -257,9 +257,9 @@ Fig. 4. Circuit diagram of diode bridge rectifier with C-filter.
 The diode bridge rectifier converts the ac input voltage into a pulsating dc output voltage as shown in Fig. 3(a). Here, the peak value is higher than average dc output voltage. Also, the peak-to-peak ripple voltage is more. To get constant dc voltage with minimum ripple content, a low-pass filter (here a capacitor filter) is inserted between the rectifier bridge output and load. By connecting the “C-filter” the load voltage waveform becomes smooth and thus the peak-to-peak ripple voltage reduces, which is shown in Fig. 3(b). The peak–to-peak output ripple voltage is:
 <br>
 </div>
-
 <br><br>
-<div style="float: left; width:50%;">
+
+<div style="float: left; width:50%;"><br>
   <img src="images/th21.png" height="60px">
       </div>
 <div style="float: right; width:50%; text-align:center;">
@@ -293,9 +293,9 @@ The ripple factor of output voltage is:
 <div style="float: left; width:100%;"><br>
 The average output voltage with C-filter is:
 </div>
+<br><br>
 
-<br>
-<div style="float: left; width:50%;">
+<div style="float: left; width:50%;"><br>
   <img src="images/th24.png" height="60px">
       </div>
 <div style="float: right; width:50%; text-align:center;">
