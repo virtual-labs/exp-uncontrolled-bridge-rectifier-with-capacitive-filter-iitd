@@ -262,6 +262,11 @@ function toggleNextBtn(){
   let nextBtn = document.querySelector(".btn-next")
   nextBtn.classList.toggle("btn-deactive")
 }
+const cancelSpeech = ()=>{
+  window.speechSynthesis.cancel()
+  ccQueue = []
+}
+
 const setIsProcessRunning = (value) => {
   // calling toggle the next
   if(value != isRunning){
@@ -271,7 +276,7 @@ const setIsProcessRunning = (value) => {
   isRunning = value;
   if(value){
     Dom.useTogglePointerEventsHere(false)
-    window.speechSynthesis.cancel()
+    cancelSpeech()
     Dom.hideAll()
   }
 };
@@ -323,14 +328,17 @@ let student_name = "";
 
 // ! text to audio
 
-const textToSpeach = (text) => {
-  // if(isMute){
-  //   return;
-  // }
+const textToSpeach = (text,speak=true) => {
+  // for filter <sub></sub>
+  text = text.replaceAll("<sub>"," ").replaceAll("</sub>"," ")
   let utterance = new SpeechSynthesisUtterance();
   utterance.text = text;
   utterance.voice = window.speechSynthesis.getVoices()[0];
-  window.speechSynthesis.speak(utterance)
+  if(isMute || !speak){
+    utterance.volume = 0
+    utterance.rate = 10
+  }
+  window.speechSynthesis.speak(utterance);
   return utterance;
 };
 
@@ -338,7 +346,7 @@ const textToSpeach = (text) => {
 let ccQueue = [];
 // for subtitile
 let ccObj = null;
-function setCC(text = null, speed = 25, speak = true, blockArrow=false) {
+function setCC(text = null, speed = 25, speak = true) {
   if (ccObj != null) {
     ccObj.destroy();
   }
@@ -355,20 +363,7 @@ function setCC(text = null, speed = 25, speak = true, blockArrow=false) {
       // }
     }
   });
-  let utterance = null
-  if (!isMute && speak){
-    utterance = textToSpeach(text)
-  }  
-  // if (utterance!=null){
-  //   setTimeout(()=>{
-  //     Dom.setBlinkArrowRed(-1)
-  //   }, 5)
-  //   utterance.onend = ()=>{
-  //     if(!blockArrow)
-  //       Dom.setBlinkArrowRed(-2)
-  //   }
-  //   return utterance
-  // }
+  let utterance = textToSpeach(text,speak)
   return utterance
 }
 
@@ -565,6 +560,154 @@ class Dom {
     else{
       animeWindow.pointerEvents("none")
     }
+  }
+  fadeHide(duration = 700, onCompleteCallback = null){
+    anime({
+      targets: this.item,
+      opacity: 0,
+      duration: duration,
+      easing: "easeInOutQuad",
+      complete: ()=>{
+        this.hide()
+        if(onCompleteCallback!=null){
+          onCompleteCallback()
+        }
+      }
+    });
+    return this;
+  }
+  fadeShow(duration = 700, onCompleteCallback = null){
+    this.show().opacity(0)
+    anime({
+      targets: this.item,
+      opacity: 1,
+      duration: duration,
+      easing: "easeInOutQuad",
+      complete: onCompleteCallback
+    });
+    return this;
+  }
+  onClick(callback=null){
+    if(callback==null){
+      this.item.onclick = ()=>{}
+    }else{
+      this.item.onclick = callback
+    }
+    return this
+  }
+  static maskClick(
+    mask,
+    onClick,
+    leftAndDevMode = false,
+    top = 0,
+    height = 100,
+    width = 100,
+    rotate = 0
+  ) {
+    let maskImg = mask;
+    // default px
+    let leftPx = typeof leftAndDevMode === "boolean" ? 0 : leftAndDevMode;
+    maskImg.set(leftPx, top, height, width).rotate(rotate).zIndex(1000);
+    maskImg.styles({ cursor: "pointer" }).onClick(() => {
+      maskImg.styles({ cursor: "unset" });
+      maskImg.zIndex(0);
+      Dom.setBlinkArrowRed(-1)
+      maskImg.onClick(); // it will null
+      if (onClick) {
+        onClick();
+      }
+    });
+
+    if (leftAndDevMode === true) {
+      maskImg.styles({background: "red"})
+    }
+    return maskImg;
+  }
+  static setBlinkArrowOnElement(
+    connectingElement,
+    direction,
+    arrowLeft = null,
+    arrowTop = null
+  ) {
+    let blinkArrow = new Dom(".blinkArrowRed");
+    let arrowHeight = 30;
+    let arrowWidth = 38.25;
+    let arrowRotate = 0;
+    let gap = 6
+
+    // get left top height and width of the connectingElement
+    const connectingElementProps = {
+      left: connectingElement.item.offsetLeft,
+      top: connectingElement.item.offsetTop,
+      right: Number(
+        connectingElement.item.offsetLeft + connectingElement.item.offsetWidth
+      ),
+      bottom: Number(
+        connectingElement.item.offsetTop + connectingElement.item.offsetHeight
+      ),
+      centerX: Number(
+        connectingElement.item.offsetLeft +
+          connectingElement.item.offsetWidth / 2
+      ).toFixed(2),
+      centerY: Number(
+        connectingElement.item.offsetTop +
+          connectingElement.item.offsetHeight / 2
+      ).toFixed(2),
+    };
+
+    // for(let key in  connectingElementProps) {
+    //   console.log(connectingElement.item)
+    //   console.log(`${key}: ${connectingElementProps[key]}`)
+    // }
+
+    switch (direction) {
+      case "left":
+        arrowRotate = 90;
+        arrowLeft = connectingElementProps.left -  arrowWidth - gap;
+        arrowTop = connectingElementProps.centerY - arrowHeight / 2;
+        break;
+
+      case "right":
+        arrowRotate = -90;
+        arrowLeft = connectingElementProps.right + gap;
+        arrowTop = connectingElementProps.centerY - arrowHeight / 2;
+        break;
+
+      case "top":
+        arrowRotate = -180;
+        arrowLeft = connectingElementProps.centerX - arrowWidth / 2;
+        arrowTop = connectingElementProps.top - arrowHeight - gap
+        break;
+
+      case "bottom":
+        arrowRotate = 0;
+        arrowLeft = connectingElementProps.centerX - arrowWidth / 2;
+        arrowTop = connectingElementProps.bottom + gap;
+        break;
+    }
+
+    blinkArrow.set(arrowLeft, arrowTop, arrowHeight, arrowWidth).rotate(arrowRotate + 90).zIndex(10000);
+    let y = 20;
+
+    var blink = anime({
+      targets: blinkArrow.item,
+      easing: "easeInOutQuad",
+      opacity: 1,
+      translateX: y,
+      direction: "alternate",
+      loop: true,
+      autoplay: false,
+      duration: 300,
+    });
+    return {
+      reset() {
+        blinkArrow.hide();
+        blink.reset();
+      },
+      play() {
+        blink.play();
+      },
+    };
   }
   static setBlinkArrowRed(
     isX = true,
@@ -1065,11 +1208,29 @@ btn_reset_connections: new Dom(".btn-connections"),
       symbol_o : new Dom("symbol_o"),  
       part_1_text_1 : new Dom("part_1_text_1"),  
       part_1_text_2 : new Dom("part_1_text_2"),   
+      btn_hint: new Dom("btn_hint"),
+      hint_box: new Dom("hint_box"),
       //!EE10 images end here
 
       
 concept_development: new Dom(".concept_development"), 
         
+hw_result_1_1 : new Dom("hw_result_1_1"),
+hw_result_1_2 : new Dom("hw_result_1_2"),
+hw_result_1_3 : new Dom("hw_result_1_3"),
+hw_result_1_4 : new Dom("hw_result_1_4"),
+hw_result_2_1 : new Dom("hw_result_2_1"),
+hw_result_2_2 : new Dom("hw_result_2_2"),
+hw_result_2_3 : new Dom("hw_result_2_3"),
+hw_result_2_4 : new Dom("hw_result_2_4"),
+hw_result_menu_1_1 : new Dom("hw_result_menu_1_1"),
+hw_result_menu_1_2 : new Dom("hw_result_menu_1_2"),
+hw_result_menu_1_3 : new Dom("hw_result_menu_1_3"),
+hw_result_menu_2_1 : new Dom("hw_result_menu_2_1"),
+hw_result_menu_2_2 : new Dom("hw_result_menu_2_2"),
+hw_result_menu_2_3 : new Dom("hw_result_menu_2_3"),
+hw_result_menu_2_4 : new Dom("hw_result_menu_2_4"),
+mask : new Dom("mask"),
 
 // ! new items dom
  domQs1: new Dom("domQs1"),
@@ -1382,6 +1543,18 @@ concept_development: new Dom(".concept_development"),
       Scenes.items.part_1_try_again_text_1.set(745, -65, 45).hide()
       Scenes.items.part_1_try_again_text_2.set(631, 52, 175).hide()
       Scenes.items.part_1_try_again_text_3.set(787, 34, 119).zIndex(6).hide()
+
+      //! hint button code
+      Scenes.items.btn_hint.set(808 + 35, 4 + 36 - 100, 30).zIndex(1)
+      Scenes.items.hint_box.set(188 + 35, 52 - 100, 322).zIndex(10000).hide()
+
+      let hint_btn = Scenes.items.btn_hint;
+      hint_btn.item.onmouseenter = ()=>{
+        Scenes.items.hint_box.show()
+      }
+      hint_btn.item.onmouseout = ()=>{
+        Scenes.items.hint_box.hide()
+      }
 
       function stepTutorial(){
         // Dom.setBlinkArrowRed(true, 525, 48,30,null,19).play()
@@ -2383,15 +2556,15 @@ concept_development: new Dom(".concept_development"),
     //! part 5 Performance analysis
     (step5 = function () {
       setIsProcessRunning(true);
-      Scenes.items.btn_next.show()
       Dom.useTogglePointerEventsHere()
       
       // todo all previous elements hide
       Dom.hideAll();
       Scenes.items.contentAdderBox.item.innerHTML = ""
-
+      
       Scenes.setStepHeading("Step-5", "Performance Measurement of Diode Bridge Rectifier");
       
+      Scenes.items.btn_next.show()
       Scenes.items.slider_box.hide()
       // * remove all previous restrictions
       
@@ -2521,8 +2694,9 @@ concept_development: new Dom(".concept_development"),
         window.speechSynthesis.cancel()
         if(currentBlinking)
           currentBlinking.reset()
-        setCC("Simulation Done");
-        setCC("This concludes the virtual lab experiment on diode bridge rectifier with C-filter")
+        Scenes.currentStep = 10
+        setCC("Click 'Next' to go to next step");
+        Dom.setBlinkArrow(true, 790, 414).play();
         setIsProcessRunning(false);
       }
 
@@ -2824,6 +2998,9 @@ concept_development: new Dom(".concept_development"),
               let yLabel = Scenes.items.chart.label[idx].y
               Scenes.items.yLabel.setContent(yLabel)
               Scenes.items.xLabel.setContent(dataLabelX)
+              
+              //! toolkit 
+              Download.playDownloadButtonAnime()
             }
           })
         }
@@ -3488,6 +3665,10 @@ concept_development: new Dom(".concept_development"),
               let yLabel = Scenes.items.chart.label[idx].y
               Scenes.items.yLabel.setContent(yLabel)
               Scenes.items.xLabel.setContent(dataLabelX)
+            
+              //! toolkit 
+              Download.playDownloadButtonAnime()
+            
             }
           })
         }
@@ -3720,575 +3901,450 @@ concept_development: new Dom(".concept_development"),
 
     }),
 
+    //! HW Result Start - Menu 1
+    (function () {
+      setIsProcessRunning(true);
+      // to hide previous step
+      Dom.hideAll();
+      Scenes.items.slider_box.hide()
+
+      Scenes.items.btn_next.show()
+      let mask = Scenes.items.mask;
+
+      //! Required positions
+      let menu_images = [
+        Scenes.items.hw_result_menu_1_1,
+        Scenes.items.hw_result_menu_1_2,
+        Scenes.items.hw_result_menu_1_3,
+      ]
+
+      let button_subtitles = [
+        "Click on the Input Voltage",
+        "Click on Load Resistance",
+        "See the waveforms",
+      ]
+
+      let mask_clicks = [
+        (onClick=()=>{})=>{
+          Dom.maskClick(mask, ()=>{
+            onClick()
+          }, 160,134,66,157)
+          Dom.setBlinkArrowOnElement(mask, "left").play()
+        },
+        (onClick=()=>{})=>{
+          Dom.maskClick(mask, ()=>{
+            onClick()
+          }, 160,220,66,157)
+          Dom.setBlinkArrowOnElement(mask, "left").play()
+        },
+        (onClick=()=>{})=>{
+          Dom.maskClick(mask, ()=>{
+            onClick()
+          }, 94, 319, 73, 290)
+          Dom.setBlinkArrowOnElement(mask, "bottom").play()
+        },
+      ]
+
+      // setting up menu images styles
+      menu_images.forEach((image,idx)=>{
+        image.set(0,-48, 500, 950)
+        if(idx == 0){
+          image.show()
+        }else{
+          image.hide()
+        }
+        image.zIndex(idx + 1)
+      })
+
+      // * Menu button anime
+      function button_clicks(idx=0){
+        setCC(button_subtitles[idx])
+        mask_clicks[idx](()=>{
+          if(idx < menu_images.length-1)
+            menu_images[idx+1].fadeShow(1000, ()=>button_clicks(idx+1))
+          else{
+            setIsProcessRunning(false)
+            Scenes.next()
+          }
+        })
+        if(idx == menu_images.length-1){
+          return
+        }
+      }
+      button_clicks()
+      // Dom.setBlinkArrowRed(true,100,100)
+
+      return true
+    }),
+    // ! Result 1 1
+    (function () {
+      setIsProcessRunning(true);
+      // to hide previous step
+      Dom.hideAll();
+      Scenes.items.slider_box.hide()
+
+      Scenes.items.btn_next.show()
+
+      //! Required positions
+      let mask = Scenes.items.mask;
+      Scenes.items.hw_result_1_1
+        .set(0,-48, 500, 950)
+      Dom.setBlinkArrowRed(true,550,50,30,null).play()
+      // Start
+      // Dom.maskClick(mask, ()=>{
+      //   setIsProcessRunning(false)
+      //   Scenes.next()
+      // }, 728, 79, 39, 157)
+      // Dom.setBlinkArrowOnElement(mask, "left").play()
+
+      // setCC("DC supply voltage of 12 volts is given to flyback converter and duty ratio is varied from 0.1 to 0.9.")
+      setCC("This waveform is the 100 volts AC voltage which is given to the Diode bridge rectifier").onend = ()=>{
+        // setCC("Click 'Next' to go to next step");
+        setTimeout(() => {
+          Dom.setBlinkArrow(true, 790, 410).play();
+          setIsProcessRunning(false);
+        }, 2000);
+      }
 
 
-    // (step6 = function () {
-    //   setIsProcessRunning(true);
- 
-    //   Scenes.setStepHeading(
-    //     "",
-    //     "Efficiency Plot."
-    //   )
-    //   // setCC("Record 7 reading for different Load Resistances (R0)")
-    //     // ! show the slider
-    //   Scenes.items.slider_box.set(-65,-60)
-    //   Scenes.items.btn_next.show()
+      return true
+    }),
+    // ! Result 1 2
+    (function () {
+      setIsProcessRunning(true);
+      // to hide previous step
+      Dom.hideAll();
+      Scenes.items.slider_box.hide()
 
-    //   //! Required Items
-    //   // Scenes.items.circuit_full_3.set(230,-50,150)
-    //   // Scenes.items.part_3_option_3.set(-30, 155)
-    //    Scenes.items.part3_table_three.show()
-    //   //  Scenes.items.right_tick_1.set(-5,175)
-    //   Scenes.items.record_btn.set(770,220,70)
-    //   Scenes.items.btn_delete.set(785,290)
-    //   Scenes.items.btn_reset.set(787,350)
-    //   Scenes.items.part3_table_three.set(20)
-    //    let table = Scenes.items.part3_table_three.item
-    //    let valuesToMatch = []
-    //     // * index to handle records
-    //   let recordBtnClickIdx = (table.tBodies[0].rows[6].cells[4].innerHTML==""?0:7)
-      
+      Scenes.items.btn_next.show()
 
+      //! Required positions
+      let mask = Scenes.items.mask;
+      Scenes.items.hw_result_1_2
+        .set(0,-48, 500, 950)
+      Dom.setBlinkArrowRed(true,550,121,30,null).play()
+      // Start
+      // Dom.maskClick(mask, ()=>{
+      //   setIsProcessRunning(false)
+      //   Scenes.next()
+      // }, 728, 79, 39, 157)
+      // Dom.setBlinkArrowOnElement(mask, "left").play()
 
-    //    // ! graph
-    //   Scenes.items.graph4.set(null,null,220,355)
-    //   let ctx = Scenes.items.graph4.item
-      
-    //   // let xLabel = "Output Power (Po)"
-    //   let xLabel = ""
-    //   let yLabel = "Efficiency (%)"
-    //   function plotGraph(data,label,xLabel,yLabel,beginAtZero=false){
-    //     let x = new Chart(ctx, {
-    //       type: "scatter",
-    //       plugins: [{
-    //         afterDraw: chart => {
-    //           var ctx = chart.chart.ctx;
-    //           ctx.save();
-    //           ctx.textAlign = 'center';
-    //           ctx.font = '18px Arial';
-    //           ctx.fillStyle = 'black';
-    //           ctx.fillText('Output Power (P )', chart.chart.width / 2, chart.chart.height - 24);
-    //           ctx.textAlign = 'left';
-    //           ctx.font = '10px Arial';
-    //           ctx.fillText('0', chart.chart.width - 119, chart.chart.height - 12);
-    //           ctx.restore();
-    //         },
-            
-    //       }],
-    //       data: {
-    //         datasets: [
-    //             {
-    //               label: label,
-    //               fill: false,
-    //               borderColor: "red",
-    //               backgroundColor: "red",
-    //               data: data,
-    //             },
-    //         ],
-    //       },
-    //       options: {
-    //         scales: {
-    //           yAxes: [
-    //             {
-    //               scaleLabel: {
-    //                 display: true,
-    //                 labelString: yLabel,
-    //                 fontColor: 'black',
-    //                 fontSize: 17,
-  
-    //               },
-    //               ticks: { 
-    //                 beginAtZero:beginAtZero,
-    //                 fontColor: 'black',
-    //                 fontSize: 14,
-    //               }
-    //             },
-    //           ],
-    //           xAxes: [
-    //             {
-    //               scaleLabel: {
-    //                 display: true,
-    //                 labelString: xLabel,
-    //                 fontColor: 'black',
-    //                 fontSize: 17,
-    //               },
-    //               ticks: { 
-    //                 beginAtZero:beginAtZero,
-    //                 fontColor: 'black',
-    //                 fontSize: 14,
-    //               }
-    //             },
-    //           ],
-    //         },
-    //       },
-    //     })
-    //   }
-
-    //   // let slidersBox = document.querySelectorAll(".slider")
-    //   // let slidersBox = document.querySelectorAll(".range-slider__range")
-    //   function stepTutorial2(){
-
-    //     Dom.setBlinkArrowRed(true,50,-50,30,30,-90).play()
-    //     setCC("Select the value of V<sub>g</sub>")
-
-    //     sliders.vImg.onclick = ()=>{
-    //       sliderV()
-    //       sliders.vImg.click()
-    //       Dom.setBlinkArrowRed(true,215,110,null,null,90).play()
-    //       setCC("Set the value of D",5)
-
-    //       sliders.d.onclick = ()=>{
-    //         Dom.setBlinkArrowRed(true,560,20).play()
-    //         setCC("Set the value of R")
-
-    //         sliders.r.onclick = ()=>{
-    //           Dom.setBlinkArrowRed(true,894,226).play()
-    //           setCC("Press Record")
-
-    //           sliders.clearOnclick()
-    //         }
-    //       }
-    //     }
-    //   }
-    //   if(recordBtnClickIdx == 0){
-    //     stepTutorial2()
-    //   }
-
-      
-    //   function setDataToGraph(){
-    //     let graphData = []
-    //     var rows = table.tBodies[0].rows
-    //     let n = 7
-    //     for(let i=0;i<n;i++){
-    //       graphData.push(
-    //         {
-    //           x: rows[i].cells[9].innerHTML,
-    //           y: rows[i].cells[10].innerHTML
-    //         }
-    //       )
-    //     }
-    //     plotGraph(graphData,"Efficiency","",yLabel)
-    //     Scenes.items.graph4.set(null,null,220,355)
-    //   }
-    //   // ! ------------> If data already present plot the graph
-    //   if(table.tBodies[0].rows[6].cells[2].innerHTML !== ""){
-    //     setIsProcessRunning(false)
-    //     Scenes.currentStep = 4
-
-    //     recordBtnClickIdx = 7
-    //     let rows = table.tBodies[0].rows
-    //     let n=7
-    //     // * to get old values from table for matching
-    //     for(let i=0;i<n;i++){
-    //       let val = rows[i].cells[2].innerHTML
-    //       valuesToMatch.push(Number(val))
-    //     }
-    //   }else{
-    //     // ! Please note this when plot the graph then show the graph ... 
-    //     plotGraph([{}],"Efficiency","",yLabel,true) 
-    //     Scenes.items.graph4.set(null,null,220,355)
-    //     disableSlider("reset")
-    //   }
-
-    //   // // ! adding data set
-    //   // graph.addDataset(
-    //   //   "Efficiency",
-    //   //   "red",
-    //   //   []
-    //   // )
-       
-
-    //    //!onclick for delete btn
-    //    Scenes.items.btn_delete.item.onclick =  function(){
-    //     if(recordBtnClickIdx == 0 || recordBtnClickIdx > 8){
-    //       return
-    //     }
-    //     let row = table.tBodies[0].rows
-    //     let n=11
-        
-    //     for(let i=1;i<n;i++){
-    //       row[recordBtnClickIdx-1].cells[i].innerHTML = "" ;
-    //     }
-    //     recordBtnClickIdx = recordBtnClickIdx-1
-    //     if(recordBtnClickIdx==0){
-    //       disableSlider("reset")
-    //     }
-    //     valuesToMatch.pop()
-    //   }
-
-    //   //! onclick for reset 
-    //   Scenes.items.btn_reset.item.onclick = function(){
-    //     var rows = table.tBodies[0].rows
-    //     let n=7
-    //     let m=11
-  
-    //     for(let i=0;i<n;i++){
-    //       for(let j=1;j<m;j++){
-    //         rows[i].cells[j].innerHTML = "";
-    //       }
-    //     }
-
-    //     // reset all the parameters
-    //     // so just simply call this step again
-    //     sliders.reset()
-    //     Scenes.steps[7]()        
-        
-    //   }
-
-    //   // ! onclick for record
-    //   Scenes.items.record_btn.item.onclick = function(){ 
-    //      // for arrow system
-    //      if(recordBtnClickIdx < 6){
-    //         Dom.setBlinkArrowRed(true,560,75).play()
-    //         setCC("Change the value of R and Record it")
-
-    //         sliders.r.onclick = ()=>{
-    //           Dom.setBlinkArrowRed(true,894,226).play()
-    //           setCC("Press Record")
-
-    //           sliders.clearOnclick()
-    //         }
-    //     }else{
-    //       Dom.setBlinkArrowRed(-1)
-    //     }
-        
-    //     let vInValue = Number(sliders.v.value)
-    //     let dutyRatioValue = Number(sliders.d.value)
-    //     let resistanceValue = Number(sliders.r.value)
-    //     updateValues(vInValue,dutyRatioValue,resistanceValue)
-
-    //     // ! Can't select same values
-    //     if(recordBtnClickIdx < 7 && valuesToMatch.indexOf(resistanceValue)!=-1){
-    //       setCC("Please select different value.")
-    //       return
-    //     }else{
-    //       valuesToMatch.push(resistanceValue)
-    //     }
-
-    //     // ! sort the data
-    //     if(recordBtnClickIdx==7){
-
-    //       function sortTable(){
-    //         var rows = table.tBodies[0].rows
-
-    //         let n=7
-    //         for(let i=0;i<n;i++){
-    //             for(let j=0;j<n-i-1;j++){
-    //                 let val1 = Number(rows[j].cells[9].innerHTML)
-    //                 let val2 = Number(rows[j+1].cells[9].innerHTML)
-    //                 if(val1 > val2){
-    //                     let temp = rows[j].innerHTML
-    //                     rows[j].innerHTML = rows[j+1].innerHTML
-    //                     rows[j+1].innerHTML = temp
-    //                 }
-    //             }
-    //         }
-    //         for(let i=0;i<n;i++){
-    //             rows[i].cells[0].innerHTML = i+1
-    //         }
-    //       }
-    //       sortTable()
-
-    //       // * plot the graph
-    //       // adding parameter to x,y graph
-    //       // var rows = table.tBodies[0].rows
-    //       // let n = 7
-    //       // for(let i=0;i<n;i++){
-    //       //   graph.addData(0,
-    //       //     {
-    //       //       x: rows[i].cells[9].innerHTML,
-    //       //       y: rows[i].cells[10].innerHTML
-    //       //     }
-    //       //   )
-    //       // }
-    //       setDataToGraph()
-
-    //       // after complete
-    //       Dom.setBlinkArrow(true, 790, 408).play()
-    //       setCC("Click 'Next' to go to next step")
-    //       setIsProcessRunning(false)
-    //       Scenes.currentStep = 4
-    //     }
+      // setCC("DC supply voltage of 12 volts is given to flyback converter and duty ratio is varied from 0.1 to 0.9.")
+      setCC("Rectified load voltage waveform is pulsating with frequency double that of input AC supply.").onend = ()=>{
+        // setCC("Click 'Next' to go to next step");
+        setTimeout(() => {
+          Dom.setBlinkArrow(true, 790, 410).play();
+          setIsProcessRunning(false);
+        }, 2000);
+      }
 
 
-        
+      return true
+    }),
+    // ! Result 1 3
+    (function () {
+      setIsProcessRunning(true);
+      // to hide previous step
+      Dom.hideAll();
+      Scenes.items.slider_box.hide()
 
-    //     // deactivate the sliders after first value  done
-    //     // todo
-    //     if(recordBtnClickIdx == 0){
-    //       disableSlider("v")
-    //       disableSlider("d")
-    //     }
-    //     let tableRow = table.tBodies[0].rows[recordBtnClickIdx++]
-    //     tableRow.cells[1].innerHTML = vInValue
-    //     tableRow.cells[2].innerHTML = dutyRatioValue
-    //     tableRow.cells[3].innerHTML = resistanceValue
-    //     tableRow.cells[4].innerHTML = Number(Formulas.efficiencyPlot.v0(values)).toFixed(2)
-    //     tableRow.cells[5].innerHTML = Number(Formulas.efficiencyPlot.M(values)).toFixed(2)
-    //     tableRow.cells[6].innerHTML = Number(Formulas.efficiencyPlot.iIn(values)).toFixed(2)
-    //     tableRow.cells[7].innerHTML = Number(Formulas.efficiencyPlot.i0(values)).toFixed(2)
-    //     tableRow.cells[8].innerHTML = Number(Formulas.efficiencyPlot.pIn(values)).toFixed(2)
-    //     tableRow.cells[9].innerHTML = Number(Formulas.efficiencyPlot.p0(values)).toFixed(2)
-    //     tableRow.cells[10].innerHTML = Number(Formulas.efficiencyPlot.eff(values)).toFixed(2)
+      Scenes.items.btn_next.show()
 
-    //     // let x = tableRow.cells[9].innerHTML
-    //     // let y = tableRow.cells[10].innerHTML
-    //     // // ! addData to graph
-    //     // graph.addData(0,{x:x,y:y})
+      //! Required positions
+      let mask = Scenes.items.mask;
+      Scenes.items.hw_result_1_3
+        .set(0,-48, 500, 950)
+      Dom.setBlinkArrowRed(true,550,206,30,null).play()
+      // Start
+      // Dom.maskClick(mask, ()=>{
+      //   setIsProcessRunning(false)
+      //   Scenes.next()
+      // }, 728, 79, 39, 157)
+      // Dom.setBlinkArrowOnElement(mask, "left").play()
 
-    //     // if(recordBtnClickIdx>6){
-    //     //   // after complete
-    //     //   Dom.setBlinkArrow(true, 790, 408).play();
-    //     //   setCC("Click 'Next' to go to next step");
-    //     //   setIsProcessRunning(false); 
-    //     //   Scenes.currentStep = 4
-    //     // }
-    //     // warning for sorting the data
-    //     if(recordBtnClickIdx==7){
-    //       setCC("Click 'Record' to sort the table according to D and plot the graph.")
-    //     }
-    //   }    
-       
-      
-
-      
-    //   return true
-    // }),
-    // (step7 = function () {
-    //   setIsProcessRunning(true);
- 
-    //   Scenes.setStepHeading(
-    //     "",
-    //     "Component Stress"
-    //   )
-    //     // ! show the slider
-    //   Scenes.items.slider_box.set(-70,-60)
-    //   Scenes.items.btn_next.show()
-
-    //   //! Required Items
-    //   // Scenes.items.circuit_full_2.set(270,0,160)
-    //   //  Scenes.items.part_3_option_4.set(-30, 170,100,220)
-    //   // Scenes.items.right_tick_1.set(-12,185)
-    //   Scenes.items.part3_table_four.set(10,170)
-    //   Scenes.items.part3_table_four_2.set(10,240)
-    //   Scenes.items.record_btn.set(465,180,60)
-    //   //  Scenes.items.part_3_option_4_graph.set(295,-60,60)
-
-    //   let styles = {
-    //     color: "black",
-    //     backgroundColor: "white",
-    //     width: "80px",
-    //     rotate: "-90deg"
-    //   }
-    //   Scenes.items.tempTitle1.set(548,25).zIndex(4000).setContent("Switch").styles(styles)
-    //   Scenes.items.tempTitle2.set(548,150).zIndex(4000).setContent("Diode").styles(styles)
-    //   Scenes.items.tempTitle3.set(548,290).zIndex(4000).setContent("Capacitor").styles(styles)
-    //    let graph_box5 = new Dom(".graph_box5")
-    //    // ! graph
-    //   // Scenes.items.graph4.set(null,null,190,290)
-    //   Scenes.items.graph5.set(null,0,390,320).styles({marginLeft: "15px"})
-    //   graph_box5.set(575,-70,475,365)
-    //   let table = Scenes.items.part3_table_four.item
-
-    //   let ctx2 = Scenes.items.graph5.item
-    //   let chart2 = Scenes.items.chart.graph5
-      
-    //   function plotGraph(){
-    //     let data = {
-    //       labels: ['Switch', 'Diode', 'Capacitor'],
-    //       datasets: [
-    //           {
-    //               label: 'Voltage Stress',
-    //               backgroundColor: 'rgba(255, 0, 0, 1)',
-    //               borderColor: 'rgba(255, 0, 0, 1)',
-    //               borderWidth: 1,
-    //               data: []
-    //           },
-    //           {
-    //               label: 'Current Stress',
-    //               backgroundColor: 'rgba(0, 0, 255, 1)',
-    //               borderColor: 'rgba(0, 0, 255, 1)',
-    //               borderWidth: 1,
-    //               data: []
-    //           },
-    //           {
-    //               label: 'Power',
-    //               backgroundColo r: 'rgba(0, 128, 0, 1)',
-    //               borderColor: 'rgba(0, 128, 0, 1)',
-    //               borderWidth: 1,
-    //               data: [],
-    //           }
-    //       ]
-    //   };
-
-    //   let options = {
-    //       maintainAspectRatio: false,
-    //       scales: {
-    //           xAxes: [{
-    //               ticks: {
-    //                   fontSize: 17,
-    //                   fontWeight: 'bold',
-    //                   fontColor: 'black',
-    //                   beginAtZero: true
-    //               }
-    //           }],
-    //           yAxes: [{
-    //               ticks: {
-    //                   display: false,
-    //                   // fontSize: 17,
-    //                   // fontWeight: 'bold',
-    //                   // fontColor: 'black',
-    //                   // beginAtZero: true,
-    //                   // autoSkip: false,
-    //                   // position: "right",
-    //                   // maxRotation: 90, // Rotate labels to 90 degrees
-    //                   // minRotation: 90,
-    //                   // callback: function(value) {
-    //                   //   return value // You can add custom formatting here if needed
-    //                   // }
-    //               }
-    //           }]
-    //       }
-    //   };
-
-    //   chart2 = new Chart(ctx2, {
-    //       type: 'horizontalBar',
-    //       data: data,
-    //       options: options
-    //   });
-    //   Scenes.items.chart.graph5 = chart2
-    //   Scenes.items.graph5.set(0,0,475,345)
-    // }
-
-    //   // let slidersBox = document.querySelectorAll(".slider")
-    //   let slidersBox = document.querySelectorAll(".range-slider__range")
-    //   function stepTutorial2(){
-
-        
-    //     Dom.setBlinkArrowRed(true,50,-50,30,30,-90).play()
-    //     setCC("Select the value of V<sub>g</sub>")
-
-    //     sliders.vImg.onclick = ()=>{
-    //       sliderV()
-    //       sliders.vImg.click()
-    //       Dom.setBlinkArrowRed(true,215,110,null,null,90).play()
-    //       setCC("Set the value of D",5)
-
-    //       sliders.d.onclick = ()=>{
-    //         Dom.setBlinkArrowRed(true,560,20).play()
-    //         setCC("Set the value of R")
-
-    //         sliders.r.onclick = ()=>{
-    //           Dom.setBlinkArrowRed(true,504,140,30,30,-90).play()
-    //           setCC("Press Record")
-
-    //           sliders.clearOnclick()
-    //         }
-    //       }
-    //     }
-
-    //   }
-    //   if(table.tBodies[0].rows[0].cells[3].innerHTML == ""){
-    //     stepTutorial2()
-    //   }
-    //   const graph = {
-    //     addDataset(chart,label,bgColor,data){
-    //       chart.data.datasets.push(
-    //         {
-    //           label: label,
-    //           fill: true,
-    //           borderColor: bgColor,
-    //           data: data,
-    //         }
-    //       )
-    //       chart.update()
-    //     },
-    //     addData(chart,index,data){
-    //       console.log(data)
-    //       if(data.length > 0){
-    //         chart.data.datasets[index].data = data
-    //       }else{
-    //         chart.data.datasets[index].data.push(data)
-    //       }
-    //       chart.update()
-    //     }
-    //   }
-
-    //    // ! ------------> If data already present plot the graph
-    //     if(table.tBodies[0].rows[0].cells[6].innerHTML !== ""){
-    //       setIsProcessRunning(false)
-    //       Scenes.items.graph5.set(0,0,475,345)
-    //       Scenes.currentStep = 4
-    //     }else{
-    //       plotGraph()
-    //     }   
-
-       
-    //    // ! onclick for record
-    //    Scenes.items.record_btn.item.onclick = function(){
-    //     Dom.setBlinkArrowRed(-1)
-
-    //      let vInValue = Number(sliders.v.value)
-    //      let dutyRatioValue = Number(sliders.d.value)
-    //      let resistanceValue = Number(sliders.r.value)
-
-    //      updateValues(vInValue,dutyRatioValue,resistanceValue)
- 
-    //      let tableRow = table.tBodies[0].rows[0]
-    //      tableRow.cells[1-1].innerHTML = vInValue
-    //      tableRow.cells[2-1].innerHTML = dutyRatioValue
-    //      tableRow.cells[3-1].innerHTML = resistanceValue
-    //      tableRow.cells[4-1].innerHTML = Number(Formulas.stress.v0(values)).toFixed(2)
-    //      tableRow.cells[5-1].innerHTML = Number(Formulas.stress.M(values)).toFixed(2)
-    //      tableRow.cells[6-1].innerHTML = Number(Formulas.stress.i2(values)).toFixed(2)
-    //      tableRow.cells[7-1].innerHTML = Number(Formulas.stress.i0(values)).toFixed(2)
+      // setCC("DC supply voltage of 12 volts is given to flyback converter and duty ratio is varied from 0.1 to 0.9.")
+      setCC("The rectifier is supplying resistive load and hence its input current waveform follows the supply voltage waveform.").onend = ()=>{
+        // setCC("Click 'Next' to go to next step");
+        setTimeout(() => {
+          Dom.setBlinkArrow(true, 790, 410).play();
+          setIsProcessRunning(false);
+        }, 2000);
+      }
 
 
-    //      let v0 = Number(Formulas.stress.v0(values)).toFixed(2)
-    //      let i2 = Number(Formulas.stress.i2(values)).toFixed(2)
-    //      let ic = Number(Formulas.stress.i2(values) - Formulas.stress.i0(values)).toFixed(2)
-    //      let pSw = Number(Formulas.stress.pSw(values)).toFixed(2)
-    //      let pDi = Number(Formulas.stress.pDi(values)).toFixed(2)
-         
-    //      // table two changes
-    //      let table2Row = Scenes.items.part3_table_four_2.item.tBodies[0].rows
-    //     table2Row[0].cells[1].innerHTML = `> v<sub>0</sub> (${v0})`
-    //     table2Row[1].cells[1].innerHTML = `> v<sub>0</sub> (${v0})`
-    //     table2Row[2].cells[1].innerHTML = `> v<sub>0</sub> (${v0})`
-        
-    //     table2Row[0].cells[2].innerHTML = `> i<sub>2</sub> (${i2})`
-    //     table2Row[1].cells[2].innerHTML = `> i<sub>2</sub> (${i2})`
-    //     table2Row[2].cells[2].innerHTML = `> (i<sub>2</sub>-i<sub>0</sub>)(${ic})`
+      return true
+    }),
+    // ! Result 1 4
+    (function () {
+      setIsProcessRunning(true);
+      // to hide previous step
+      Dom.hideAll();
+      Scenes.items.slider_box.hide()
 
-    //     table2Row[0].cells[3].innerHTML = `> P<sub>Sw</sub> (${pSw})`
-    //     table2Row[1].cells[3].innerHTML = `> i<sub>2</sub> (${pDi})`
+      Scenes.items.btn_next.show()
 
-    //     // ! add values to graph
-    //     let graph2_voltageStress = [v0,v0,v0]
-    //     let graph2_currentStress = [i2,i2,ic]
-    //     let graph2_power = [pSw,pDi]
+      //! Required positions
+      let mask = Scenes.items.mask;
+      Scenes.items.hw_result_1_4
+        .set(0,-48, 500, 950)
+      Dom.setBlinkArrowRed(true,550,294,30,null).play()
+      // Start
+      // Dom.maskClick(mask, ()=>{
+      //   setIsProcessRunning(false)
+      //   Scenes.next()
+      // }, 728, 79, 39, 157)
+      // Dom.setBlinkArrowOnElement(mask, "left").play()
 
-    //     // ! destroy and show new graph
-    //     // plotGraph()
-    //     graph.addData(chart2,0,graph2_voltageStress)
-    //     graph.addData(chart2,1,graph2_currentStress)
-    //     graph.addData(chart2,2,graph2_power)
-    //       // after complete
-    //       Dom.setBlinkArrow(true, 790, 408).play();
-    //       // setCC("Click 'Next' to go to next step");
-    //       setIsProcessRunning(false); 
-    //       Scenes.currentStep = 4
+      // setCC("DC supply voltage of 12 volts is given to flyback converter and duty ratio is varied from 0.1 to 0.9.")
+      setCC("Voltage across the Diode is equal to the DC output voltage when the diode is in OFF-state and close to zero when the diode is in ON-state.").onend = ()=>{
+        // setCC("Click 'Next' to go to next step");
+        setTimeout(() => {
+          Dom.setBlinkArrow(true, 790, 410).play();
+          setIsProcessRunning(false);
+        }, 2000);
+      }
 
-    //       // ! fix resistance value to its original
-    //       // resistanceSlider.min = 10
-    //       // resistanceSlider.max = 500
-    //       // resistanceSlider.step = 1        
-    //       // resistanceSlider.value = 10
-    //       // resistanceSlider.oninput = ()=>{}
-    //    }    
-    //   return true
-    // }),
+
+      return true
+    }),
+
+    //! HW Result Start - Menu 2
+    (function () {
+      setIsProcessRunning(true);
+      // to hide previous step
+      Dom.hideAll();
+      Scenes.items.slider_box.hide()
+
+      Scenes.items.btn_next.show()
+      let mask = Scenes.items.mask;
+
+      //! Required positions
+      let menu_images = [
+        Scenes.items.hw_result_menu_2_1,
+        Scenes.items.hw_result_menu_2_2,
+        Scenes.items.hw_result_menu_2_3,
+        Scenes.items.hw_result_menu_2_4,
+      ]
+
+      let button_subtitles = [
+        "Click on the Input Voltage",
+        "Click on Load Resistance",
+        "Click on Filter Capacitor",
+        "See the waveforms",
+      ]
+
+      let mask_clicks = [
+        (onClick=()=>{})=>{
+          Dom.maskClick(mask, ()=>{
+            onClick()
+          }, 165,127,66,157)
+          Dom.setBlinkArrowOnElement(mask, "left").play()
+        },
+        (onClick=()=>{})=>{
+          Dom.maskClick(mask, ()=>{
+            onClick()
+          }, 165,208,66,157)
+          Dom.setBlinkArrowOnElement(mask, "left").play()
+        },
+        (onClick=()=>{})=>{
+          Dom.maskClick(mask, ()=>{
+            onClick()
+          }, 165,287,66,157)
+          Dom.setBlinkArrowOnElement(mask, "left").play()
+        },
+        (onClick=()=>{})=>{
+          Dom.maskClick(mask, ()=>{
+            onClick()
+          }, 94, 361, 52, 290)
+          Dom.setBlinkArrowOnElement(mask, "bottom").play()
+        },
+      ]
+
+      // setting up menu images styles
+      menu_images.forEach((image,idx)=>{
+        image.set(0,-48, 500, 950)
+        if(idx == 0){
+          image.show()
+        }else{
+          image.hide()
+        }
+        image.zIndex(idx + 1)
+      })
+
+      // * Menu button anime
+      function button_clicks(idx=0){
+        setCC(button_subtitles[idx])
+        mask_clicks[idx](()=>{
+          if(idx < menu_images.length-1)
+            menu_images[idx+1].fadeShow(1000, ()=>button_clicks(idx+1))
+          else{
+            setIsProcessRunning(false)
+            Scenes.next()
+          }
+        })
+        if(idx == menu_images.length-1){
+          return
+        }
+      }
+      button_clicks()
+      // Dom.setBlinkArrowRed(true,100,100)
+
+      return true
+    }),
+    // ! Result 2 1
+    (function () {
+      setIsProcessRunning(true);
+      // to hide previous step
+      Dom.hideAll();
+      Scenes.items.slider_box.hide()
+
+      Scenes.items.btn_next.show()
+
+      //! Required positions
+      let mask = Scenes.items.mask;
+      Scenes.items.hw_result_2_1
+        .set(0,-48, 500, 950)
+      Dom.setBlinkArrowRed(true,550,50,30,null).play()
+      // Start
+      // Dom.maskClick(mask, ()=>{
+      //   setIsProcessRunning(false)
+      //   Scenes.next()
+      // }, 728, 79, 39, 157)
+      // Dom.setBlinkArrowOnElement(mask, "left").play()
+
+      // setCC("DC supply voltage of 12 volts is given to flyback converter and duty ratio is varied from 0.1 to 0.9.")
+      setCC("AC supply voltage of 100 volts (RMS value) is given to the Diode Bridge Rectifier").onend = ()=>{
+        // setCC("Click 'Next' to go to next step");
+        setTimeout(() => {
+          Dom.setBlinkArrow(true, 790, 410).play();
+          setIsProcessRunning(false);
+        }, 2000);
+      }
+
+
+      return true
+    }),
+    // ! Result 2 2
+    (function () {
+      setIsProcessRunning(true);
+      // to hide previous step
+      Dom.hideAll();
+      Scenes.items.slider_box.hide()
+
+      Scenes.items.btn_next.show()
+
+      //! Required positions
+      let mask = Scenes.items.mask;
+      Scenes.items.hw_result_2_2
+        .set(0,-48, 500, 950)
+      Dom.setBlinkArrowRed(true,550,121,30,null).play()
+      // Start
+      // Dom.maskClick(mask, ()=>{
+      //   setIsProcessRunning(false)
+      //   Scenes.next()
+      // }, 728, 79, 39, 157)
+      // Dom.setBlinkArrowOnElement(mask, "left").play()
+
+      // setCC("DC supply voltage of 12 volts is given to flyback converter and duty ratio is varied from 0.1 to 0.9.")
+      setCC("The load voltage ripple is reduced after connecting the C-filter.").onend = ()=>{
+        // setCC("Click 'Next' to go to next step");
+        setTimeout(() => {
+          Dom.setBlinkArrow(true, 790, 410).play();
+          setIsProcessRunning(false);
+        }, 2000);
+      }
+
+
+      return true
+    }),
+    // ! Result 2 3
+    (function () {
+      setIsProcessRunning(true);
+      // to hide previous step
+      Dom.hideAll();
+      Scenes.items.slider_box.hide()
+
+      Scenes.items.btn_next.show()
+
+      //! Required positions
+      let mask = Scenes.items.mask;
+      Scenes.items.hw_result_2_3
+        .set(0,-48, 500, 950)
+      Dom.setBlinkArrowRed(true,550,206,30,null).play()
+      // Start
+      // Dom.maskClick(mask, ()=>{
+      //   setIsProcessRunning(false)
+      //   Scenes.next()
+      // }, 728, 79, 39, 157)
+      // Dom.setBlinkArrowOnElement(mask, "left").play()
+
+      // setCC("DC supply voltage of 12 volts is given to flyback converter and duty ratio is varied from 0.1 to 0.9.")
+      setCC("With R-load and filter capacitor present at the output side, input current flows only during the charging time of the capacitor").onend = ()=>{
+        // setCC("Click 'Next' to go to next step");
+        setTimeout(() => {
+          Dom.setBlinkArrow(true, 790, 410).play();
+          setIsProcessRunning(false);
+        }, 2000);
+      }
+
+
+      return true
+    }),
+    // ! Result 2 4
+    (function () {
+      setIsProcessRunning(true);
+      // to hide previous step
+      Dom.hideAll();
+      Scenes.items.slider_box.hide()
+
+      Scenes.items.btn_next.show()
+
+      //! Required positions
+      let mask = Scenes.items.mask;
+      Scenes.items.hw_result_2_4
+        .set(0,-48, 500, 950)
+      Dom.setBlinkArrowRed(true,550,294,30,null).play()
+      // Start
+      // Dom.maskClick(mask, ()=>{
+      //   setIsProcessRunning(false)
+      //   Scenes.next()
+      // }, 728, 79, 39, 157)
+      // Dom.setBlinkArrowOnElement(mask, "left").play()
+
+      // setCC("DC supply voltage of 12 volts is given to flyback converter and duty ratio is varied from 0.1 to 0.9.")
+      setCC("Voltage across the diode is zero when it is conducting.").onend = ()=>{
+        // setCC("Click 'Next' to go to next step");
+        setTimeout(() => {
+          Dom.setBlinkArrowRed(-1)
+          setCC("Simulation Done")
+          setCC("This concludes the vrtual lab experiment on diode bridge rectifier with C-filter")
+
+        }, 2000);
+      }
+
+
+      return true
+    }),
+
   ],
+  // ! For adding realcurrentstep in every step
+  // ! For tracking the current step accuratly
+  realCurrentStep: null,
+  setRealCurrentStep(){
+    let count = 0
+    this.steps.forEach((step,idx) => {
+      const constCount = count
+      let newStep = () => {
+        this.realCurrentStep = constCount;
+        console.log(`RealCurrentStep: ${this.realCurrentStep}`)
+        return step();
+      };
+
+      count++;
+      this.steps[idx] = newStep
+    });
+  },
   back() {
     //! animation isRunning
     // if (isRunning) {
@@ -4305,14 +4361,28 @@ concept_development: new Dom(".concept_development"),
     }
   },
   next() {
+    let ignore = true
+    const ignoreDrawerProgress = ()=>{
+      let stepsToIgnore = [9,10]
+      console.log(this.realCurrentStep)
+      ignore = stepsToIgnore.indexOf(this.realCurrentStep) != -1
+      return 
+    }
+    if(!this.realCurrentStep){
+      Scenes.setRealCurrentStep()
+    }
     //! animation isRunning
     if (isRunning) {
       return
     }
     if (this.currentStep < this.steps.length) {
+      ignoreDrawerProgress()
+
       if (this.steps[this.currentStep]()) {
-        nextDrawerItem();
-        nextProgressBar();
+        if(!ignore){
+          nextDrawerItem();
+          nextProgressBar();
+        }
         this.currentStep++;
       }         
     } else {
