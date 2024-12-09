@@ -71,7 +71,7 @@
         "a": "Explanation 1",
         "b": "Explanation 2",
         "c": "Explanation 3",
-        "d": "Explanation 4: <img src='images/expl1.png' height='100px'>"
+        "d": "Explanation 4: <img src='images/expl1.png' height='160px'>"
       },
       "correctAnswer": "d",
       "difficulty": "beginner"
