@@ -11,10 +11,10 @@
         "d": "To convert AC input voltage to DC output voltage."
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
+        "a": "Explanation 1: A rectifier is used to convert AC into DC.",
         "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "c": "Explanation 3",
+        "d": "Explanation 4"
       },
       "correctAnswer": "a",
       "difficulty": "beginner"
@@ -30,10 +30,10 @@
         "d": "IGBT"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
+        "a": "Explanation 1: A line frequency diode is most suitable for forming an uncontrolled rectifier. ",
         "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "c": "Explanation 3",
+        "d": "Explanation 4"
       },
       "correctAnswer": "a",
       "difficulty": "beginner"
@@ -49,10 +49,10 @@
         "d": "RMS output voltage"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
+        "a": "Explanation 1",
         "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "c": "Explanation 3",
+        "d": "Explanation 4: It is the maximum voltage appearing across the diode when it is reverse biased."
       },
       "correctAnswer": "d",
       "difficulty": "beginner"
@@ -68,10 +68,10 @@
         "d": "0.84"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
+        "a": "Explanation 1",
         "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "c": "Explanation 3",
+        "d": "Explanation 4: <img src='images/expl1.png' height='100px'>"
       },
       "correctAnswer": "d",
       "difficulty": "beginner"
@@ -87,10 +87,10 @@
         "d": "V<sub>rms</sub> in an uncontrolled rectifier with resistive load is equal to the rms of AC input voltage."
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "Explanation 1",
+        "b": "Explanation 2: In an uncontrolled rectifier with a resistive load, the RMS value of the output voltage is same as the RMS value of the AC input voltage.",
+        "c": "Explanation 3",
+        "d": "Explanation 4"
       },
       "correctAnswer": "b",
       "difficulty": "beginner"
