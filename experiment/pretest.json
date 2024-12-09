@@ -11,12 +11,12 @@
         "d": "To convert AC input voltage to DC output voltage."
       },
       "explanations": {
-        "a": "Explanation 1: A rectifier is used to convert AC into DC.",
+        "a": "Explanation 1",
         "b": "Explanation 2",
         "c": "Explanation 3",
-        "d": "Explanation 4"
+        "d": "Explanation 4: A rectifier is used to convert AC into DC."
       },
-      "correctAnswer": "a",
+      "correctAnswer": "d",
       "difficulty": "beginner"
     },
       
@@ -30,12 +30,12 @@
         "d": "IGBT"
       },
       "explanations": {
-        "a": "Explanation 1: A line frequency diode is most suitable for forming an uncontrolled rectifier. ",
-        "b": "Explanation 2",
+        "a": "Explanation 1",
+        "b": "Explanation 2: A line frequency diode is most suitable for forming an uncontrolled rectifier. ",
         "c": "Explanation 3",
         "d": "Explanation 4"
       },
-      "correctAnswer": "a",
+      "correctAnswer": "b",
       "difficulty": "beginner"
     },
     
@@ -51,10 +51,10 @@
       "explanations": {
         "a": "Explanation 1",
         "b": "Explanation 2",
-        "c": "Explanation 3",
-        "d": "Explanation 4: It is the maximum voltage appearing across the diode when it is reverse biased."
+        "c": "Explanation 3: It is the maximum voltage appearing across the diode when it is reverse biased.",
+        "d": "Explanation 4"
       },
-      "correctAnswer": "d",
+      "correctAnswer": "c",
       "difficulty": "beginner"
     },
         
@@ -70,10 +70,10 @@
       "explanations": {
         "a": "Explanation 1",
         "b": "Explanation 2",
-        "c": "Explanation 3",
-        "d": "Explanation 4: <img src='images/expl1.png' height='160px'>"
+        "c": "Explanation 3: <img src='images/expl1.png' height='160px'>",
+        "d": "Explanation 4"
       },
-      "correctAnswer": "d",
+      "correctAnswer": "c",
       "difficulty": "beginner"
     },
     
@@ -88,11 +88,11 @@
       },
       "explanations": {
         "a": "Explanation 1",
-        "b": "Explanation 2: In an uncontrolled rectifier with a resistive load, the RMS value of the output voltage is same as the RMS value of the AC input voltage.",
+        "b": "Explanation 2",
         "c": "Explanation 3",
-        "d": "Explanation 4"
+        "d": "Explanation 4: In an uncontrolled rectifier with a resistive load, the RMS value of the output voltage is same as the RMS value of the AC input voltage."
       },
-      "correctAnswer": "b",
+      "correctAnswer": "d",
       "difficulty": "beginner"
     }
   ]
