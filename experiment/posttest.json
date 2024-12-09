@@ -10,12 +10,12 @@
         "d": "The ripple content in the output dc-load voltage increases."
       },
       "explanations": {
-        "a": "Explanation 1: A filter at the output of a diode bridge rectifier reduces ripple content.  ",
-        "b": "Explanation 2",
+        "a": "Explanation 1",
+        "b": "Explanation 2: A filter at the output of a diode bridge rectifier reduces ripple content.",
         "c": "Explanation 3",
         "d": "Explanation 4"
       },
-      "correctAnswer": "a",
+      "correctAnswer": "b",
       "difficulty": "beginner"
     },
       
@@ -28,12 +28,12 @@
         "d": "Gives ac output voltage."
       },
       "explanations": {
-        "a": "Explanation 1: Only half of the input AC cycle is rectified, resulting in half-wave rectification.",
-        "b": "Explanation 2",
+        "a": "Explanation 1",
+        "b": "Explanation 2: Only half of the input AC cycle is rectified, resulting in half-wave rectification.",
         "c": "Explanation 3",
         "d": "Explanation 4"
       },
-      "correctAnswer": "a",
+      "correctAnswer": "b",
       "difficulty": "beginner"
     },
     
@@ -66,10 +66,10 @@
       "explanations": {
         "a": "Explanation 1",
         "b": "Explanation 2",
-        "c": "Explanation 3",
-        "d": "Explanation 4: The ripple factor of output voltage is:<br><img src='images/expl2.png' height='100px'>"
+        "c": "Explanation 3: The ripple factor of output voltage is:<br><img src='images/expl2.png' height='100px'>",
+        "d": "Explanation 4"
       },
-      "correctAnswer": "d",
+      "correctAnswer": "c",
       "difficulty": "beginner"
     },
     
@@ -84,11 +84,11 @@
       },
       "explanations": {
         "a": "Explanation 1",
-        "b": "Explanation 2: The ripple factor in a diode bridge rectifier with a C-filter depends on both the load resistance and filter capacitor. ",
-        "c": "Explanation 3",
+        "b": "Explanation 2",
+        "c": "Explanation 3: The ripple factor in a diode bridge rectifier with a C-filter depends on both the load resistance and filter capacitor. ",
         "d": "Explanation 4"
       },
-      "correctAnswer": "b",
+      "correctAnswer": "c",
       "difficulty": "beginner"
     }
   ]
