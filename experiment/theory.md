@@ -350,3 +350,8 @@ The average output voltage with C-filter is:
     ..(18)
       </div>
 <br><br>
+
+<div style="float: left; width:100%;">
+  
+#### ("For more Information on mathematical analysis, see references")
+<br></div>
