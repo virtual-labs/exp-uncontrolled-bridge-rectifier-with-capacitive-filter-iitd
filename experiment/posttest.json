@@ -2,35 +2,91 @@
   "version": 2.0,
   "questions": [
     {
-      "question": "This is a Sample Question 1?",
-      "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+      "question": "What is the purpose of filter at the output side of diode bridge rectifier?",
+      "answers": {  
+        "a": "It reduces the ripple content in the output voltage only and decreases dc-load power.",
+        "b": "It reduces the ripple content in the output voltage, output current and increases the dc-load power.",
+        "c": "There will be no change in any of the parameters.",
+        "d": "The ripple content in the output dc-load voltage increases."
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "Explanation 1",
+        "b": "Explanation 2: A filter at the output of a diode bridge rectifier reduces ripple content.",
+        "c": "Explanation 3",
+        "d": "Explanation 4"
       },
-      "correctAnswer": "a",
+      "correctAnswer": "b",
       "difficulty": "beginner"
     },
+      
     {
-      "question": "This is a Sample Question 2?",
+      "question": "2. What will happen if one of the diodes in an uncontrolled diode bridge rectifier is permanently open?",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "Nothing will change it works as before.",
+        "b": "It works as uncontrolled half wave rectifier.",
+        "c": "Gives no dc output voltage.",
+        "d": "Gives ac output voltage."
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
+        "a": "Explanation 1",
+        "b": "Explanation 2: Only half of the input AC cycle is rectified, resulting in half-wave rectification.",
+        "c": "Explanation 3",
+        "d": "Explanation 4"
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+    
+    {
+      "question": "3. When a capacitor is added at the output side what happens to the average and RMS output voltages?",
+      "answers": {
+        "a": "Increases, increases",
+        "b": "Decreases, increases",
+        "c": "Remains same, no change",
+        "d": "Increases, decreases"
+      },
+      "explanations": {
+        "a": "Explanation 1",
         "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "c": "Explanation 3",
+        "d": "Explanation 4: Adding a capacitor at the output increases the average DC output voltage by smoothing ripples while decreasing the RMS voltage."
+      },
+      "correctAnswer": "d",
+      "difficulty": "beginner"
+    },
+        
+    {
+    "question": "4. What will be the filter capacitor value required when the load resistance is 400 Ω and the ripple factor is 2.7%?",
+      "answers": {
+        "a": "220 µF",
+        "b": "270 µF",
+        "c": "470 µF",
+        "d": "4700 µF"
+      },
+      "explanations": {
+        "a": "Explanation 1",
+        "b": "Explanation 2",
+        "c": "Explanation 3: The ripple factor of output voltage is:<br><img src='images/expl2.png' height='100px'>",
+        "d": "Explanation 4"
+      },
+      "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+    
+    {
+
+      "question": "5. Ripple factor in “Diode bridge rectifier with C-filter” depends on?",
+      "answers": {
+        "a": "Filter capacitor value only.",
+        "b": "Input AC voltage.",
+        "c": "Load resistance and filter capacitor.",
+        "d": "Output voltage ripple frequency."
+      },
+      "explanations": {
+        "a": "Explanation 1",
+        "b": "Explanation 2",
+        "c": "Explanation 3: The ripple factor in a diode bridge rectifier with a C-filter depends on both the load resistance and filter capacitor. ",
+        "d": "Explanation 4"
       },
       "correctAnswer": "c",
       "difficulty": "beginner"

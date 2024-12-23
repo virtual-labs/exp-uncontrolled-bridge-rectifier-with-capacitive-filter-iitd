@@ -2,37 +2,97 @@
   "version": 2.0,
   "questions": [
     {
-      "question": "This is a Sample Question 1?",
-      "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+
+      "question": "What is the use of rectifier?",
+      "answers": {  
+        "a": "To convert DC input voltage to AC output voltage.",
+        "b": "To step-up the AC voltage.",
+        "c": "To step-down the DC voltage.",
+        "d": "To convert AC input voltage to DC output voltage."
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
+        "a": "Explanation 1",
         "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "c": "Explanation 3",
+        "d": "Explanation 4: A rectifier is used to convert AC into DC."
       },
-      "correctAnswer": "a",
+      "correctAnswer": "d",
       "difficulty": "beginner"
     },
+      
     {
-      "question": "This is a Sample Question 2?",
+      
+      "question": "2. Which of the following devices is more suitable for forming an uncontrolled rectifier?",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "Zenor diode",
+        "b": "Line frequency diode",
+        "c": "Schottky diode",
+        "d": "IGBT"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
+        "a": "Explanation 1",
+        "b": "Explanation 2: A line frequency diode is most suitable for forming an uncontrolled rectifier. ",
+        "c": "Explanation 3",
+        "d": "Explanation 4"
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+    
+    {
+      
+      "question": "3. The peak inverse voltage (PIV) of diodes in diode full bridge rectifier is equal to",
+      "answers": {
+        "a": "AC input voltage",
+        "b": "Output DC voltage",
+        "c": "Peak value of AC input voltage",
+        "d": "RMS output voltage"
+      },
+      "explanations": {
+        "a": "Explanation 1",
         "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "c": "Explanation 3: It is the maximum voltage appearing across the diode when it is reverse biased.",
+        "d": "Explanation 4"
       },
       "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+        
+    {
+
+    "question": "4. Ripple factor of an uncontrolled rectifier with resistive load is?",
+      "answers": {
+        "a": "0.01",
+        "b": "0.55",
+        "c": "0.48",
+        "d": "0.84"
+      },
+      "explanations": {
+        "a": "Explanation 1",
+        "b": "Explanation 2",
+        "c": "Explanation 3: <img src='images/expl1.png' height='160px'>",
+        "d": "Explanation 4"
+      },
+      "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+    
+    {
+
+      "question": "5. Which of the following statements is correct for the RMS value of output voltage?",
+      "answers": {
+        "a": "V<sub>rms</sub> in an uncontrolled rectifier with resistive load is equal to the average of input AC voltage.",
+        "b": "V<sub>rms</sub> in an uncontrolled rectifier with resistive load is equal to the peak of AC input voltage.",
+        "c": "V<sub>rms</sub> in an uncontrolled rectifier with resistive load is equal to the average of output voltage.",
+        "d": "V<sub>rms</sub> in an uncontrolled rectifier with resistive load is equal to the rms of AC input voltage."
+      },
+      "explanations": {
+        "a": "Explanation 1",
+        "b": "Explanation 2",
+        "c": "Explanation 3",
+        "d": "Explanation 4: In an uncontrolled rectifier with a resistive load, the RMS value of the output voltage is same as the RMS value of the AC input voltage."
+      },
+      "correctAnswer": "d",
       "difficulty": "beginner"
     }
   ]
